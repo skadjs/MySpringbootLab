@@ -32,3 +32,8 @@ build/
 ### VS Code ###
 .vscode/
 mvnw.cmd
+/.metadata/
+.DS_Store
+src/main/.DS_Store
+src/.DS_Store
+Servers/
