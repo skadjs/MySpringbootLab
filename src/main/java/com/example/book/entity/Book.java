@@ -1,92 +1,58 @@
 package com.example.book.entity;
 
 import jakarta.persistence.*;
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 
 @Entity
+@Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Book {
 
-    @Id // 기본 키(Primary Key)임을 명시합니다.
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // DB가 ID를 자동으로 생성하도록 설정합니다.
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false, length = 100)
     private String title;
+
+    @Column(nullable = false, length = 50)
     private String author;
+
+    @Column(nullable = false, unique = true, length = 13)
     private String isbn;
+
+    private double price;
+
     private LocalDate publishDate;
-    private Integer price;
 
-    // JPA는 기본 생성자를 필요로 합니다.
-    public Book() {
-    }
 
-    public Book(String title, String author, String isbn, LocalDate publishDate, Integer price) {
+    @Builder
+    public Book(String title, String author, String isbn, double price, LocalDate publishDate) {
         this.title = title;
         this.author = author;
         this.isbn = isbn;
-        this.publishDate = publishDate;
         this.price = price;
-    }
-
-    // Getter and Setter
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getTitle() {
-        return title;
+        this.publishDate = publishDate;
     }
 
     public void setTitle(String title) {
         this.title = title;
     }
 
-    public String getAuthor() {
-        return author;
-    }
-
     public void setAuthor(String author) {
         this.author = author;
     }
 
-    public String getIsbn() {
-        return isbn;
-    }
-
-    public void setIsbn(String isbn) {
-        this.isbn = isbn;
-    }
-
-    public LocalDate getPublishDate() {
-        return publishDate;
+    public void setPrice(double price) {
+        this.price = price;
     }
 
     public void setPublishDate(LocalDate publishDate) {
         this.publishDate = publishDate;
-    }
-
-    public Integer getPrice() {
-        return price;
-    }
-
-    public void setPrice(Integer price) {
-        this.price = price;
-    }
-
-    @Override
-    public String toString() {
-        return "Book{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
-                ", author='" + author + '\'' +
-                ", isbn='" + isbn + '\'' +
-                ", publishDate=" + publishDate +
-                ", price=" + price +
-                '}';
     }
 }
